@@ -36,27 +36,38 @@ public class AccountServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		int age = Integer.parseInt(request.getParameter("age"));
 
-		//アカウント登録処理を実行
 		Account account = new Account(userId, pass, mail, name, age);	//アカウントEntityのインスタンスを作成
 		AccountLogic acLogic = new AccountLogic();						//アカウントBOのインスタンスを作成
-		boolean result = acLogic.execute(account);						//アカウント登録実行。登録できた場合trueを返ってくる
 
-		//アカウント登録処理の結果によって処理を分岐
-		if(result) {//ログイン成功時
-			//リクエストスコープにユーザーID、メールアドレスを保存
-			request.setAttribute("userId", userId );
-			request.setAttribute("mail", mail);
+		//ユーザーID,パスワード,メールアドレス,年齢の数値をチェックし問題なければアカウント登録を実行
+		String errorMsg = acLogic.check(account);
+		if(errorMsg == null) {		//チェックに問題がなかった場合Accountテーブルに登録
+			boolean resul = acLogic.execute(account);		//アカウント登録実行。登録できた場合trueを返ってくる
+
+			//アカウント登録処理の結果によって処理を分岐(上記のIFでチェックしているので基本エラーは出ない想定)
+			if(resul) {//アカウント登録成功時
+				//リクエストスコープにAccountインスタンスを保存
+				request.setAttribute("account", account );
+
+				//フォワード
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/accountOK.jsp");
+				dispatcher.forward(request, response);
+			}else { //アカウント登録失敗時
+				request.setAttribute("account", null );		//リクエストスコープにnullを保存
+				request.setAttribute("errorMsg", "AccountDAOでテーブルに追加できませんでした" );
+
+				//フォワード
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/accountOK.jsp");
+				dispatcher.forward(request, response);
+			}
+		}else { 	//チェックに問題があった場合の処理
+			request.setAttribute("account", null );		//リクエストスコープにnullを保存
+			request.setAttribute("errorMsg", errorMsg );
 
 			//フォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/accountOK.jsp");
 			dispatcher.forward(request, response);
-		}else {
-			request.setAttribute("errorMsg", "アカウント登録に失敗しました。");
+
 		}
-
-
-
-
 	}
-
 }

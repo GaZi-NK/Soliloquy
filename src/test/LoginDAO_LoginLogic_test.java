@@ -1,5 +1,6 @@
-package dao;
+package test;
 
+import dao.LoginDAO;
 import model.LoginLogic;
 import model.User;
 

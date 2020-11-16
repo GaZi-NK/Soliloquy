@@ -13,7 +13,7 @@ User loginUser = (User) session.getAttribute("loginUser");
 <title>どこつぶ</title>
 </head>
 <body>
-<h1>どこつぶログイン</h1>
+<h1>独り言ログイン</h1>
 <% if(loginUser != null) { %>
 	<p>ログインに成功しました</p>
 	<p>ようこそ<%= loginUser.getUserId() %>さん</p>

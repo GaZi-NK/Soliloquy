@@ -9,11 +9,22 @@ public class AccountLogicTest {
 		testExecute();
 	}
 
+	/**
+	 *
+	 */
 	public static void testExecute() {
-		Account account = new Account("red", "pass", "red@icloud.com", "naoya", 24);
+		Account account = new Account("redmjjkjkd", "pass123", "red@iclou.com", "naoya", 24);
 		AccountLogic acLogic = new AccountLogic();
-		if(acLogic.execute(account)) {
-			System.out.println("アカウント登録に成功しました");
+		String errorMsg = acLogic.check(account);
+		if (errorMsg == null) {
+			if (acLogic.execute(account)) {
+				System.out.println("アカウント登録に成功しました");
+			} else {
+				System.out.println("ユーザーIDは既に登録されています");
+			}
+
+		} else {
+			System.out.println(errorMsg);
 		}
 	}
 

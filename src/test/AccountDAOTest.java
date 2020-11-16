@@ -9,12 +9,12 @@ import model.Account;
 public class AccountDAOTest {
 
 	public static void main(String[] args) {
-		//testCreateAccount(); //データベースにアカウントが登録できるか確認
+		testCreateAccount(); //データベースにアカウントが登録できるか確認
 		testAccountList();
 	}
 
 	public static void testCreateAccount() {
-		Account account = new Account("naoya", "naoya824", "test@icloud.com", "鎌倉 直哉", 25);
+		Account account = new Account("naoy", "naoya824", "test@icloud.com", "鎌倉 直哉", 25);
 		AccountDAO dao = new AccountDAO();
 		boolean createResult = dao.createAccount(account);
 

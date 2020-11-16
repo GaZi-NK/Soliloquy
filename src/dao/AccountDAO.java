@@ -37,7 +37,7 @@ public class AccountDAO {
 
 		}catch(SQLException e){
 			e.printStackTrace();
-			System.out.println("登録できませんでした");
+			System.out.println("Accountテーブルに"+ account.getUserId() +"は登録されています。");
 			return false;
 		}
 		return true;
