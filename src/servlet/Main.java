@@ -20,10 +20,10 @@ import model.User;
 public class Main extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	//つぶやきに関するリクエストを処理するコントローラとして動作
+	//独り言に関するリクエストを処理するコントローラとして動作
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		//つぶやきリストを取得して、リクエストスコープに保存
+		//独り言リストを取得して、リクエストスコープに保存
 		GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
 		List<Mutter> mutterList = getMutterListLogic.execute();
 		request.setAttribute("mutterList", mutterList);
@@ -55,7 +55,7 @@ public class Main extends HttpServlet {
 			HttpSession session = request.getSession();
 			User loginUser = (User) session.getAttribute("loginUser");
 
-			//つぶやきをつぶやきリスト追加
+			//独り言を独り言リストに(MUTTERテーブルに)追加
 			Mutter mutter = new Mutter(loginUser.getUserId(), text);
 			PostMutterLogic postMutterLogic = new PostMutterLogic();
 			postMutterLogic.execute(mutter);

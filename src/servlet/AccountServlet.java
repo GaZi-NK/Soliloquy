@@ -39,7 +39,8 @@ public class AccountServlet extends HttpServlet {
 		Account account = new Account(userId, pass, mail, name, age);	//アカウントEntityのインスタンスを作成
 		AccountLogic acLogic = new AccountLogic();						//アカウントBOのインスタンスを作成
 
-		//ユーザーID,パスワード,メールアドレス,年齢の数値をチェックし問題なければアカウント登録を実行
+		//ユーザーID,メールアドレスが既に登録されているか確認
+		//問題なければアカウント登録を実行
 		String errorMsg = acLogic.check(account);
 		if(errorMsg == null) {		//チェックに問題がなかった場合Accountテーブルに登録
 			boolean resul = acLogic.execute(account);		//アカウント登録実行。登録できた場合trueを返ってくる
@@ -54,7 +55,7 @@ public class AccountServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 			}else { //アカウント登録失敗時
 				request.setAttribute("account", null );		//リクエストスコープにnullを保存
-				request.setAttribute("errorMsg", "AccountDAOでテーブルに追加できませんでした" );
+				request.setAttribute("errorMsg", "なんらかのエラーでアカウント情報をテーブルに追加できませんでした" );
 
 				//フォワード
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/accountOK.jsp");

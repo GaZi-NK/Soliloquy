@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>どこつぶ</title>
-</head>
+</headr>
 <body>
 	<h1>独り言へようこそ</h1>
 	<form action="/Soliloquy/Login" method="post">

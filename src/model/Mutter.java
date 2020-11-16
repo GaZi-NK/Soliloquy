@@ -5,23 +5,23 @@ import java.io.Serializable;
 //MUTTERテーブルのレコードを表すクラス
 public class Mutter implements Serializable {
 	private int id;			//id
-	private String userName;	//ユーザー名
+	private String userId;	//ユーザーID
 	private String text;		//つぶやき内容
 
 	public Mutter() {}
 
-	public Mutter(String userName, String text) {
-		this.userName = userName;
+	public Mutter(String userId, String text) {
+		this.userId = userId;
 		this.text = text;
 	}
 
-	public Mutter(int id, String userName, String text) {
+	public Mutter(int id, String userId, String text) {
 		this.id = id;
-		this.userName = userName;
+		this.userId = userId;
 		this.text = text;
 	}
 
 	public int getId() { return this.id; }
-	public String getUserName() { return this.userName; }
+	public String getUserName() { return this.userId; }
 	public String getText() { return this.text; }
 }
