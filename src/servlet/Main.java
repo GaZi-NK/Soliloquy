@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -49,6 +51,11 @@ public class Main extends HttpServlet {
 		request.setCharacterEncoding("UTF-8"); //リクエストの文字コードを指定
 		String text = request.getParameter("text");
 
+		//独り言投稿時間を保存
+		LocalDateTime LocalDT = LocalDateTime.now(); //現在時刻を取得
+		DateTimeFormatter dateTimeF = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); //時刻の表示形式を指定
+		String nowDateTime = LocalDT.format(dateTimeF); //指定した表示形式で現在時刻をStringで取得
+
 		//入力値チェック
 		if(text != null && text.length() != 0) {
 			//セッションスコープに保存されたユーザー情報を取得
@@ -56,7 +63,7 @@ public class Main extends HttpServlet {
 			User loginUser = (User) session.getAttribute("loginUser");
 
 			//独り言を独り言リストに(MUTTERテーブルに)追加
-			Mutter mutter = new Mutter(loginUser.getUserId(), text);
+			Mutter mutter = new Mutter(loginUser.getUserId(), text, nowDateTime);
 			PostMutterLogic postMutterLogic = new PostMutterLogic();
 			postMutterLogic.execute(mutter);
 		} else {

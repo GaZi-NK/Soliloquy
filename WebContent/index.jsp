@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>どこつぶ</title>
+<title>独り言</title>
 </headr>
 <body>
 	<h1>独り言へようこそ</h1>
