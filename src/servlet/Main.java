@@ -18,14 +18,15 @@ import model.Mutter;
 import model.PostMutterLogic;
 import model.User;
 
+//独り言に関するリクエストを処理するコントローラとして動作
 @WebServlet("/Main")
 public class Main extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	//独り言に関するリクエストを処理するコントローラとして動作
+	//独り言を読み取りトップページを表示
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		//独り言リストを取得して、リクエストスコープに保存
+		//独り言リストを取得して、main.jspにフォワード
 		GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
 		List<Mutter> mutterList = getMutterListLogic.execute();
 		request.setAttribute("mutterList", mutterList);
@@ -46,6 +47,7 @@ public class Main extends HttpServlet {
 
 	}
 
+	//独り言を投稿する処理⇒独り言の投稿が完了したら独り言リスト取得してmain.jspにフォワード
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//リクエストパラメータの取得
 		request.setCharacterEncoding("UTF-8"); //リクエストの文字コードを指定
@@ -66,8 +68,7 @@ public class Main extends HttpServlet {
 			Mutter mutter = new Mutter(loginUser.getUserId(), text, nowDateTime);
 			PostMutterLogic postMutterLogic = new PostMutterLogic();
 			postMutterLogic.execute(mutter);
-		} else {
-			//エラーメッセージをリクエストスコープに保存
+		} else {//入力値が不正だったらエラーメッセージをリクエストスコープに保存
 			request.setAttribute("errorMsg", "つぶやきが入力されていません");
 		}
 
