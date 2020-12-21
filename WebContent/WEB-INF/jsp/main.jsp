@@ -24,11 +24,12 @@
 			value="つぶやく">
 	</form>
 
-	<c:forEach var="mutter" items="${mutterList }">
+	<c:forEach var="mutter" items="${mutterList}">
 		<p>
 			<c:out value="${mutter.userId }"></c:out>:
 			<c:out value="${mutter.text }"></c:out>
 			<c:out value="${mutter.dateTime }"></c:out>
+			<input type="button" value="削除" >
 	</c:forEach>
 </body>
 </html>

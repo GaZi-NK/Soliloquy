@@ -77,4 +77,54 @@ public class MutterDAO {
 		return true;
 	}
 
+	//データベースのレコードを削除
+	public boolean delete(Mutter mutter) {
+		try(Connection conn = DriverManager.getConnection(JDBC_URL,DB_USER, DB_PASS)){
+
+			//INSERT文の準備(idは自動連番なので指定しなくてよい)
+			String sql = "DELETE FROM MUTTER WHERE NAME=? AND TEXT=? AND DT=?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			//INSERT文の「?」に使用する値を設定しSQLを完成
+			pStmt.setString(1, mutter.getUserId());
+			pStmt.setString(2, mutter.getText());
+			pStmt.setString(3, mutter.getDateTime());
+
+			//INSERT文を実行(resultには追加された行数が代入される)
+			int result = pStmt.executeUpdate();
+			if(result != 1) {
+				return false;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	//データベースのレコード(独り言)を編集
+	public boolean update(Mutter mutter) {
+		try(Connection conn = DriverManager.getConnection(JDBC_URL,DB_USER, DB_PASS)){
+
+			//UPDATE文の準備
+			String sql = "UPDATE MUTTER SET TEXT = '?' WHERE NAME = '?' AND TEXT = '?' AND DT = '?'";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			//INSERT文の「?」に使用する値を設定しSQLを完成
+			//pstmt.setString(1. )	//編集語の独り言
+			pStmt.setString(1, mutter.getUserId()); //編集する独り言のユーザー
+			pStmt.setString(2, mutter.getText());	//編集する独り言
+			pStmt.setString(3, mutter.getDateTime());	//編集する独り言の時間(投稿した)
+
+			//INSERT文を実行(resultには追加された行数が代入される)
+			int result = pStmt.executeUpdate();
+			if(result != 1) {
+				return false;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 }
