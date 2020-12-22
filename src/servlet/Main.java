@@ -83,20 +83,5 @@ public class Main extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	//独り言を削除する処理
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//リクエストパラメータの取得
-		request.setCharacterEncoding("UTF-8"); //リクエストの文字コードを指定
-
-		//つぶやきリストを取得して、リクエストスコープに保存
-		GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
-		List<Mutter> mutterlist = getMutterListLogic.execute();
-		request.setAttribute("mutterList", mutterlist);
-
-		//メイン画面にフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
-		dispatcher.forward(request, response);
-
-	}
 
 }

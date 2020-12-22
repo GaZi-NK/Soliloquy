@@ -17,7 +17,6 @@ public class MutterDAO {
 	private final String DB_USER = "sa";
 	private final String DB_PASS = "";
 
-
 	//データベースの情報を取得
 	public List<Mutter> findAll(){
 		List<Mutter> mutterList = new ArrayList<>();
