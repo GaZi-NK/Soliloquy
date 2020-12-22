@@ -2,7 +2,7 @@ package model;
 
 import dao.MutterDAO;
 
-public class DeletetMutterLogic {
+public class DeleteMutterLogic {
 	public void execute(Mutter mutter) {
 		MutterDAO dao = new MutterDAO();
 		dao.delete(mutter);

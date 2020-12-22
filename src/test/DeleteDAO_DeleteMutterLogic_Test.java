@@ -11,7 +11,7 @@ public class DeleteDAO_DeleteMutterLogic_Test {
 
 
 	public static void deleteLogicTest() {
-		Mutter mutter = new Mutter("MutterDAOTest","テストです","2020-11-17 19:34:21");
+		Mutter mutter = new Mutter("naoya","あいうえお","2020-12-22 19:47:43");
 		MutterDAO dao = new MutterDAO();
 		if(dao.delete(mutter)) {
 			System.out.println("レコードの削除に成功しました");

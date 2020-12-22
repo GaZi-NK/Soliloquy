@@ -22,16 +22,19 @@
 	<form action="/Soliloquy/Main" method="post">
 		<input type="text" name="text"> <input type="submit"value="つぶやく">
 	</form>
+	<p>
+	<font color="red"><c:out value="${requestScope.deleteErrorMsg}"></c:out></font>
+	</p>
 
 	<c:forEach var="mutter" items="${mutterList}">
 		<p>
-			<form action="/Soliloquy/Delete" method="post">
+			<form action="/Soliloquy/MainDelete" method="post">
 				<c:out value="${mutter.userId }"></c:out>:
 				<c:out value="${mutter.text }"></c:out>
 				<c:out value="${mutter.dateTime }"></c:out>
 				<input type="hidden" name="userId" value="${mutter.userId}">
-				<input type="hidden" name="text" value="${mutter.text }">
-				<input type="hidden" name="dateTime" value="${mutte.dateTime }">
+				<input type="hidden" name="text" value="${mutter.text}">
+				<input type="hidden" name="dateTime" value="${mutter.dateTime}">
 				<input type="submit" value="削除" >
 			</form>
 	</c:forEach>

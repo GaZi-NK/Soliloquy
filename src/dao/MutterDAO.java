@@ -24,7 +24,7 @@ public class MutterDAO {
 		//データベース接続
 		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
 			//SELECT文の準備
-			String sql = "SELECT ID,NAME,TEXT,DT FROM MUTTER ORDER BY ID DESC";
+			String sql = "SELECT ID,USER_ID,TEXT,DT FROM MUTTER ORDER BY ID DESC";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			//SELECTを実行
@@ -36,7 +36,7 @@ public class MutterDAO {
 			//SELECT文の結果をArrayListに格納
 			while(rs.next()) {
 				int id = rs.getInt("ID");
-				String userName = rs.getString("NAME");
+				String userName = rs.getString("USER_ID");
 				String text = rs.getString("TEXT");
 				String dateTime =  sdf.format(rs.getTimestamp("DT"));
 				Mutter mutter = new Mutter(id, userName, text, dateTime);
@@ -55,7 +55,7 @@ public class MutterDAO {
 		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
 
 			//INSERT文の準備(idは自動連番なので指定しなくてよい)
-			String sql = "INSERT INTO MUTTER(NAME, TEXT, DT) VALUES(?, ?, ?)";
+			String sql = "INSERT INTO MUTTER(USER_ID, TEXT, DT) VALUES(?, ?, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			//INSERT文の「?」に使用する値を設定しSQLを完成
@@ -81,7 +81,7 @@ public class MutterDAO {
 		try(Connection conn = DriverManager.getConnection(JDBC_URL,DB_USER, DB_PASS)){
 
 			//INSERT文の準備(idは自動連番なので指定しなくてよい)
-			String sql = "DELETE FROM MUTTER WHERE NAME=? AND TEXT=? AND DT=?";
+			String sql = "DELETE FROM MUTTER WHERE USER_ID=? AND TEXT=? AND DT=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			//INSERT文の「?」に使用する値を設定しSQLを完成
@@ -106,7 +106,7 @@ public class MutterDAO {
 		try(Connection conn = DriverManager.getConnection(JDBC_URL,DB_USER, DB_PASS)){
 
 			//UPDATE文の準備
-			String sql = "UPDATE MUTTER SET TEXT = '?' WHERE NAME = '?' AND TEXT = '?' AND DT = '?'";
+			String sql = "UPDATE MUTTER SET TEXT = '?' WHERE USER_ID = '?' AND TEXT = '?' AND DT = '?'";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			//INSERT文の「?」に使用する値を設定しSQLを完成
