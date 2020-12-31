@@ -9,10 +9,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>どこつぶ</title>
+<title>独り言</title>
 </head>
 <body>
-	<h1>どこつぶメイン</h1>
+	<h1>独り言</h1>
 	<p>
 		${sessionScope.loginUser.userId}さん、ログイン中
 		<a href="/Soliloquy/Logout">ログアウト</a>
@@ -28,10 +28,15 @@
 
 	<c:forEach var="mutter" items="${mutterList}">
 		<p>
-			<form action="/Soliloquy/MainDelete" method="post">
 				<c:out value="${mutter.userId }"></c:out>:
 				<c:out value="${mutter.text }"></c:out>
 				<c:out value="${mutter.dateTime }"></c:out>
+			<form action="/Soliloquy/MainUpdete" method="get">
+				<input type="hidden" name="userId" value="${mutter.userId}">
+				<input type="hidden" name="text" value="${mutter.text}">
+				<input type="hidden" name="dateTime" value="${mutter.dateTime}">
+				<input type="submit" value="編集" >
+			<form action="/Soliloquy/MainDelete" method="post">
 				<input type="hidden" name="userId" value="${mutter.userId}">
 				<input type="hidden" name="text" value="${mutter.text}">
 				<input type="hidden" name="dateTime" value="${mutter.dateTime}">

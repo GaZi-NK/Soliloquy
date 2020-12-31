@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Mutter;
+import model.UpdateMutter;
 
 public class MutterDAO {
 	//データベース接続に使用する情報
@@ -80,16 +81,16 @@ public class MutterDAO {
 	public boolean delete(Mutter mutter) {
 		try(Connection conn = DriverManager.getConnection(JDBC_URL,DB_USER, DB_PASS)){
 
-			//INSERT文の準備(idは自動連番なので指定しなくてよい)
+			//DELETE文の準備(idは自動連番なので指定しなくてよい)
 			String sql = "DELETE FROM MUTTER WHERE USER_ID=? AND TEXT=? AND DT=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
-			//INSERT文の「?」に使用する値を設定しSQLを完成
+			//DELETE文の「?」に使用する値を設定しSQLを完成
 			pStmt.setString(1, mutter.getUserId());
 			pStmt.setString(2, mutter.getText());
 			pStmt.setString(3, mutter.getDateTime());
 
-			//INSERT文を実行(resultには追加された行数が代入される)
+			//DELETE文を実行(resultには追加された行数が代入される)
 			int result = pStmt.executeUpdate();
 			if(result != 1) {
 				return false;
@@ -102,7 +103,7 @@ public class MutterDAO {
 	}
 
 	//データベースのレコード(独り言)を編集
-	public boolean update(Mutter mutter) {
+	public boolean update(UpdateMutter upMutter) {
 		try(Connection conn = DriverManager.getConnection(JDBC_URL,DB_USER, DB_PASS)){
 
 			//UPDATE文の準備
@@ -110,10 +111,10 @@ public class MutterDAO {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			//INSERT文の「?」に使用する値を設定しSQLを完成
-			//pstmt.setString(1. )	//編集語の独り言
-			pStmt.setString(1, mutter.getUserId()); //編集する独り言のユーザー
-			pStmt.setString(2, mutter.getText());	//編集する独り言
-			pStmt.setString(3, mutter.getDateTime());	//編集する独り言の時間(投稿した)
+			pStmt.setString(1, upMutter.getToText());	//編集後の独り言
+			pStmt.setString(2, upMutter.getUserId()); //編集する独り言のユーザー
+			pStmt.setString(3, upMutter.getText());	//編集する独り言
+			pStmt.setString(4, upMutter.getDateTime());	//編集する独り言の時間(投稿した)
 
 			//INSERT文を実行(resultには追加された行数が代入される)
 			int result = pStmt.executeUpdate();
