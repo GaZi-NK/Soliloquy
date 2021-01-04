@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import model.GetMutterListLogic;
 import model.Mutter;
+import model.UpdateMutter;
+import model.UpdateMutterLogic;
 import model.User;
 
 
@@ -44,7 +46,7 @@ public class MainUpdete extends HttpServlet {
 			dispatcher.forward(request, response);
 		}else{
 			updateErrorMsg = "※自分以外の独り言は編集できません！！";
-			request.setAttribute("deleteErrorMsg", updateErrorMsg);
+			request.setAttribute("updateErrorMsg", updateErrorMsg);
 
 			//つぶやきリストを取得して、リクエストスコープに保存
 			GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
@@ -61,6 +63,23 @@ public class MainUpdete extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//リクエストパラメータの取得
 		request.setCharacterEncoding("UTF-8"); //リクエストの文字コードを指定
+		String userId = request.getParameter("userId");
+		String text = request.getParameter("text");
+		String dateTime = request.getParameter("dateTime");
+		String toText = request.getParameter("toText");
+
+		UpdateMutter upMutter = new UpdateMutter(userId, text, dateTime, toText);
+		UpdateMutterLogic upMutterLogic = new UpdateMutterLogic();
+		upMutterLogic.execute(upMutter);
+
+		//つぶやきリストを取得して、リクエストスコープに保存
+		GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
+		List<Mutter> mutterlist = getMutterListLogic.execute();
+		request.setAttribute("mutterList", mutterlist);
+
+		//メイン画面にフォワード
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

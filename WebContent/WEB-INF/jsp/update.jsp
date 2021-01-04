@@ -21,7 +21,7 @@
 	</p>
 	<p>
 		<c:out value="変更後"></c:out>
-	<form action="/Soliloquy/Main" method="post">
+	<form action="/Soliloquy/MainUpdete" method="post">
 		<input type="text" name="toText">
 		<input type="hidden" name="userId" value="${mutter.userId}">
 		<input type="hidden" name="text" value="${mutter.text}">

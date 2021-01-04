@@ -107,7 +107,7 @@ public class MutterDAO {
 		try(Connection conn = DriverManager.getConnection(JDBC_URL,DB_USER, DB_PASS)){
 
 			//UPDATE文の準備
-			String sql = "UPDATE MUTTER SET TEXT = '?' WHERE USER_ID = '?' AND TEXT = '?' AND DT = '?'";
+			String sql = "UPDATE MUTTER SET TEXT =? WHERE USER_ID =? AND TEXT =? AND DT =?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			//INSERT文の「?」に使用する値を設定しSQLを完成

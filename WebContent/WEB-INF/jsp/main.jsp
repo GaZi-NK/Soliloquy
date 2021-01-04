@@ -24,6 +24,7 @@
 	</form>
 	<p>
 	<font color="red"><c:out value="${requestScope.deleteErrorMsg}"></c:out></font>
+	<font color="red"><c:out value="${requestScope.updateErrorMsg}"></c:out></font>
 	</p>
 
 	<c:forEach var="mutter" items="${mutterList}">
